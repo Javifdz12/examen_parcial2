@@ -33,7 +33,8 @@ print(coach1)
 print(coach2)
 
 class entrenador:
-    def __init__(self, list_pokemons):
+    def __init__(self, list_pokemons, nombre):
+        self.nombre = nombre
         self.list_pokemons = list_pokemons
         self.pokemon1=list_pokemons[0]
         self.pokemon2=list_pokemons[1]
@@ -53,6 +54,7 @@ class combate_pokemon:
                     print(f"el pokemon {self.entrenador2.pokemon1.nombre} de {self.entrenador2} gano la batalla")
                     print(f"le quedan {self.entrenador2.pokemon1.salud} puntos de salud")
                 elif self.entrenador2.pokemon1.salud<=0:
+                    self.entrenador2.list_pokemons.remove(self.entrenador2.pokemon1)
                     print(f"el pokemon {self.entrenador1.pokemon1.nombre} de {self.entrenador1} gano la batalla")
                     print(f"le quedan {self.entrenador1.pokemon1.salud} puntos de salud")
 
@@ -65,6 +67,7 @@ class combate_pokemon:
                     print(f"el pokemon {self.entrenador2.pokemon2.nombre} de {self.entrenador2} gano la batalla")
                     print(f"le quedan {self.entrenador2.pokemon2.salud} puntos de salud")
                 elif self.entrenador2.pokemon2.salud<=0:
+                    self.entrenador2.list_pokemons.remove(self.entrenador2.pokemon2)
                     print(f"el pokemon {self.entrenador1.pokemon2.nombre} de {self.entrenador1} gano la batalla")
                     print(f"le quedan {self.entrenador1.pokemon2.salud} puntos de salud")
 
@@ -77,14 +80,19 @@ class combate_pokemon:
                     print(f"el pokemon {self.entrenador2.pokemon3.nombre} de {self.entrenador2} gano la batalla")
                     print(f"le quedan {self.entrenador2.pokemon3.salud} puntos de salud")
                 elif self.entrenador2.pokemon3.salud<=0:
+                    self.entrenador2.list_pokemons.remove(self.entrenador2.pokemon3)
                     print(f"el pokemon {self.entrenador1.pokemon3.nombre} de {self.entrenador1} gano la batalla")
                     print(f"le quedan {self.entrenador1.pokemon3.salud} puntos de salud")
+            if self.entrenador1.list_pokemons==[]:
+                print(f"la batalla la gano el entrenador {self.entrenador2.nombre}")
+            else:
+                print(f"la batalla la gano el entrenador {self.entrenador2.nombre}")
 
 
 
 
 
 
-combate=combate_pokemon(entrenador(coach1),entrenador(coach2))
+combate=combate_pokemon(entrenador(coach1,"javi"),entrenador(coach2,"ruben"))
 combate.comenzar()
-print(coach1)
+
