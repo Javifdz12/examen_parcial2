@@ -31,6 +31,7 @@ class pokemon:
             self.defensa=defensa
         else:
             raise Exception("defensa erronea")
+
     def descripcion(self):
         print(f'pokemon id {self.id}, with name {self.nombre}, has a weapon {self.arma} and health {self.salud}')
 
