@@ -29,8 +29,6 @@ with open(archivo2) as archivo:
         defensa=columnas[5]
         coach2.append(pokemon(id,nombre,arma,int(salud),int(ataque),int(defensa)))
 
-print(coach1)
-print(coach2)
 
 class entrenador:
     def __init__(self, list_pokemons, nombre):
@@ -71,7 +69,7 @@ class combate_pokemon:
     def __init__(self,entrenador1,entrenador2):
         self.entrenador1=entrenador1
         self.entrenador2=entrenador2
-    def combate(pokemon1,pokemon2):
+    def combate_individual(pokemon1,pokemon2):
         while pokemon1.salud>0 and pokemon2.salud>0:
             pokemon1.atacar(pokemon2)
             pokemon2.atacar(pokemon1)
@@ -89,7 +87,7 @@ class combate_pokemon:
         b=self.entrenador2.get_pokemon()
         print("la batalla comienza en 3....,2....,1....")
         while self.entrenador1.list_pokemons!=[] and self.entrenador2.list_pokemons!=[]:
-            combate1=combate_pokemon.combate(self.entrenador1.list_pokemons[a],self.entrenador2.list_pokemons[b])
+            combate1=combate_pokemon.combate_individual(self.entrenador1.list_pokemons[a],self.entrenador2.list_pokemons[b])
             if self.entrenador1.list_pokemons[a].salud<=0:
                 self.entrenador1.list_pokemons.remove(self.entrenador1.list_pokemons[a])
                 if self.entrenador1.list_pokemons!=[]:
@@ -107,6 +105,6 @@ class combate_pokemon:
                 print("!!ENHORABUENA¡¡")
 
 
-combate=combate_pokemon(entrenador(coach1,"javi"),entrenador(coach2,"ruben"))
-combate.comenzar()
+combate1=combate_pokemon(entrenador(coach1,"javi"),entrenador(coach2,"ruben"))
+combate1.comenzar()
 
