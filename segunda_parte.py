@@ -9,9 +9,13 @@ print(file.head())
 file2=pd.DataFrame({"id":file["#"],"nombre":file["Name"],"ataque":file["Attack"],"defensa":file["Defense"],"salud":file["HP"]})
 file2["ataque"]=file2["ataque"]/10
 file2["defensa"]=file2["defensa"]/10
+file2=file2[file2["salud"]<=100]
 file2=file2[file2["ataque"]<=10]
 file2=file2[file2["defensa"]<=10]
+file2=file2.drop_duplicates(subset=["id"])
+file2=file2.dropna()
 file2=file2.to_csv("file2.csv")
+
 
 class pokemon2:
 
@@ -27,15 +31,15 @@ class pokemon2:
             self.nombre=nombre
         else:
             self.nombre="nombre"
-        if 1<salud<100:
+        if 0<salud<=100:
             self.salud=salud
         else:
             raise Exception("salud erronea")
-        if 1<=ataque<=10:
+        if 0<ataque<=10:
             self.ataque=ataque
         else:
             raise Exception("ataque erroneo")
-        if 1<=defensa<=10:
+        if 0<defensa<=10:
             self.defensa=defensa
         else:
             raise Exception("defensa erronea")
@@ -82,9 +86,22 @@ with open(archivo1) as archivo:
         ataque=columnas[3]
         defensa=columnas[4]
         pokemons_disponibles.append(pokemon2(id,nombre,float(salud),float(ataque),float(defensa)))
-x=3
-pokemons_grupos_de_3=lambda pokemons_disponibles:[pokemons_disponibles[i:i+x] for i in range(0,len(pokemons_disponibles))]
-print(pokemons_grupos_de_3)
+
+"""x=3
+pokemons_grupos_de_3=lambda pokemons_disponibles,x:[pokemons_disponibles[i:i+x] for i in range(0,len(pokemons_disponibles),x)]
+equipos_pokemon=pokemons_grupos_de_3(pokemons_disponibles,x)
+df_equipos_pokemon=pd.Series(equipos_pokemon)
+ataques=[]
+defensas=[]
+vidas=[]
+for i in range(0,len(df_equipos_pokemon)):
+    for j in range(0,len(df_equipos_pokemon[i])):
+        ataques=ataques.append(df_equipos_pokemon[i][j].ataque)
+        defensas=defensas.append(df_equipos_pokemon[i][j].defensa)
+        vidas=vidas.append(df_equipos_pokemon[i][j].salud)
+print(ataques)"""
+
+
 class entrenador_combate:
     def __init__(self, list_pokemons, nombre):
         self.nombre = nombre
