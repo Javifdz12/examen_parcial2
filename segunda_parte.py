@@ -1,7 +1,7 @@
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
-from sys import getsizeof
+from random import choice
 
 file=pd.read_csv('Pokemon2.csv',sep=",")
 print(file.columns)
@@ -34,9 +34,7 @@ sns.boxplot(x="defensa",data=file2)
 plt.show()
 sns.boxplot(x="salud",data=file2)
 plt.show()
-file2=file2.to_csv("file2.csv")
-
-
+file10=file2.to_csv("file2.csv")
 class pokemon2:
 
 
@@ -65,7 +63,7 @@ class pokemon2:
             raise Exception("defensa erronea")
 
     def descripcion(self):
-        print(f'pokemon id {self.id}, with name {self.nombre}, has a weapon {self.arma} and health {self.salud}')
+        print(f'pokemon id {self.id}, with name {self.nombre} and health {self.salud}')
 
     def esta_vivo(self):
         if self.salud<=0:
@@ -90,8 +88,6 @@ class pokemon2:
 
 
 
-
-
 pokemons_disponibles=[]
 sep=","
 archivo1="file2.csv"
@@ -108,53 +104,34 @@ with open(archivo1) as archivo:
         pokemons_disponibles.append(pokemon2(id,nombre,float(salud),float(ataque),float(defensa)))
 
 
-
-
-"""x=3
-pokemons_grupos_de_3=lambda pokemons_disponibles,x:[pokemons_disponibles[i:i+x] for i in range(0,len(pokemons_disponibles),x)]
-equipos_pokemon=pokemons_grupos_de_3(pokemons_disponibles,x)
-df_equipos_pokemon=pd.Series(equipos_pokemon)
-ataques=[]
-defensas=[]
-vidas=[]
-for i in range(0,len(df_equipos_pokemon)):
-    for j in range(0,len(df_equipos_pokemon[i])):
-        ataques=ataques.append(df_equipos_pokemon[i][j].ataque)
-        defensas=defensas.append(df_equipos_pokemon[i][j].defensa)
-        vidas=vidas.append(df_equipos_pokemon[i][j].salud)
-print(ataques)"""
-
-
 class entrenador_combate:
-    def __init__(self, list_pokemons, nombre):
-        self.nombre = nombre
-        self.list_pokemons = list_pokemons
-        self.pokemon1=list_pokemons[0]
-        self.pokemon2=list_pokemons[1]
-        self.pokemon3=list_pokemons[2]
-    def get_pokemon(self):
-        lista1=self.list_pokemons
-        i=0
-        print(f'{self.nombre} debe elegir uno de sus pokemons:')
-        for i in range(0,len(lista1)):
-            print(f"\n{i}- {lista1[i].nombre}")
-        x=int(input())
-        print(f'{self.nombre} eligio a {lista1[x].nombre}')
-        return int(x)
-    def elegir_equipo(self):
-        lista1=self.list_pokemons
-        i=0
-        lista2=[]
-        print(f'{self.nombre} debe elegir su equipo pokemon:')
-        while len(lista2)<=3:
-            for i in range(0,len(lista1)):
-                print(f"\n{i}- {lista1[i].nombre}")
-            x=int(input())
-            print(f'{self.nombre} añadio a {lista1[x].nombre} a su equipo')
-            lista2=lista2.append(lista1[x])
-            lista1=lista1.remove(lista1[x])
+    def __init__(self,nombre,list_pokemons):
+        if type(nombre)!= str:
+            raise Exception("el nombre debe ser un string")
+        else:
+            self.nombre=nombre
+        if type(list_pokemons)!= list:
+            raise Exception("el grupo de pokemons, debe ser una lista")
+        else:
+            self.list_pokemons = list_pokemons
 
-        return lista2
+    def get_pokemon(self):
+        print(f'{self.nombre} debe elegir uno de sus pokemons:')
+        for i in range(0,len(self.list_pokemons)):
+            print(f"\n{i}- {self.list_pokemons[i].nombre}")
+        x=int(input())
+        print(f'{self.nombre} eligio a {self.list_pokemons[x].nombre}')
+        return int(x)
+
+    def elegir_equipo(self):
+        a=[]
+        for i in range(0,3):
+            x=self.get_pokemon()
+            a.append(self.list_pokemons[x])
+            self.list_pokemons.remove(self.list_pokemons[x])
+        return a
+
+
 
 class combate_pokemon:
     def __init__(self,entrenador1,entrenador2):
@@ -174,6 +151,7 @@ class combate_pokemon:
                 print(f"le quedan {pokemon1.salud} puntos de salud")
 
 
+
     def comenzar(self):
         self.entrenador1.list_pokemons=self.entrenador1.elegir_equipo()
         self.entrenador2.list_pokemons=self.entrenador2.elegir_equipo()
@@ -181,7 +159,7 @@ class combate_pokemon:
         b=self.entrenador2.get_pokemon()
         print("la batalla comienza en 3....,2....,1....")
         while self.entrenador1.list_pokemons!=[] and self.entrenador2.list_pokemons!=[]:
-            combate1=combate_pokemon.combate_individual(self.entrenador1.list_pokemons[a],self.entrenador2.list_pokemons[b])
+            combate_pokemon.combate_individual(self.entrenador1.list_pokemons[a],self.entrenador2.list_pokemons[b])
             if self.entrenador1.list_pokemons[a].salud<=0:
                 self.entrenador1.list_pokemons.remove(self.entrenador1.list_pokemons[a])
                 if self.entrenador1.list_pokemons!=[]:
@@ -199,6 +177,7 @@ class combate_pokemon:
                 print("!!ENHORABUENA¡¡")
 
 
-combate1=combate_pokemon(entrenador_combate(pokemons_disponibles,"javi"),entrenador_combate(pokemons_disponibles,"ruben"))
+combate1=combate_pokemon(entrenador_combate("javi",pokemons_disponibles),entrenador_combate("ruben",pokemons_disponibles))
 combate1.comenzar()
+
 
