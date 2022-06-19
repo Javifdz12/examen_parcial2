@@ -32,8 +32,6 @@ class pokemon:
         else:
             raise Exception("defensa erronea")
 
-    def descripcion(self):
-        print(f'pokemon id {self.id}, with name {self.nombre}, has a weapon {self.arma} and health {self.salud}')
 
     def esta_vivo(self):
         if self.salud<=0:
@@ -55,6 +53,8 @@ class pokemon:
         else:
             self.salud=self.salud-daño
             print(True)
+    def __str__(self):
+        return f'pokemon id {self.id}, with name {self.nombre}, has a weapon {self.arma} and health {self.salud}'
 
 
 
@@ -74,8 +74,8 @@ class pokemon:
 pokemon1=pokemon(1,2,armas.puñetazo,50,4,5)
 pokemon2=pokemon(3,"pikachu",armas.patada,67,10,5)
 pokemon3=pokemon(5,"charmander",armas.cabezazo,58,6,4)
-pokemon3.descripcion()
-pokemon2.descripcion()
+print(pokemon3.__str__())
+print(pokemon2.__str__())
 pokemon4=pokemon(7,"pepe",armas.puñetazo,50,4,5)
 pokemon2.atacar(pokemon1)
 pokemon1.esta_vivo()

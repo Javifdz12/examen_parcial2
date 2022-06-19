@@ -48,6 +48,10 @@ class entrenador:
         return int(x)
 
 
+
+
+
+
 class combate:
     def __init__(self,pokemon1,pokemon2):
         self.pokemon1=pokemon1
@@ -81,6 +85,7 @@ class combate_pokemon:
             else:
                 print(f"el pokemon {pokemon1.nombre} gano la batalla")
                 print(f"le quedan {pokemon1.salud} puntos de salud")
+
 
     def comenzar(self):
         a=self.entrenador1.get_pokemon()
